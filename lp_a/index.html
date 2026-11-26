@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>非属人YouTube収益化｜AI制作スタジオOS（Track A）</title>
+  <meta name="description" content="感覚でジャンルを選んで伸び悩む非属人YouTubeを卒業。競合10ch倍勝率分析からAI自動制作・音量正規化・0.5秒サムネ検証まで一気通貫で再現する実戦OS。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&family=Noto+Sans+JP:wght@500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --teal-dark: #134055; --teal: #1A868F; --cyan: #09A7CE; --navy: #0B1E36;
+      --orange: #F97316; --orange-dark: #EA580C; --green: #06C755; --gold: #F59E0B;
+      --ink: #1A1A1A; --muted: #475569; --gray-bg: #F4F7FA; --border: #E2E8F0;
+      --maxw: 1140px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; overflow-x: clip; max-width: 100%; }
+    body {
+      margin: 0; font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
+      color: var(--ink); background: #fff; line-height: 1.7;
+      padding-bottom: 74px; overflow-x: clip; max-width: 100%;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; width: 100%; }
+
+    /* STICKY WHITE OFFICIAL HEADER (DMM STYLE) */
+    header {
+      position: sticky; top: 0; z-index: 60; background: #fff;
+      border-bottom: 1px solid var(--border); box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; min-height: 66px; gap: 14px; }
+    .brand { font-weight: 900; font-size: 1rem; color: var(--ink); display: flex; align-items: center; gap: 8px; }
+    .brand-tag { background: var(--teal); color: #fff; font-size: .72rem; font-weight: 900; padding: 3px 8px; border-radius: 4px; }
+    .nav-links { display: flex; align-items: center; gap: 20px; font-size: .84rem; font-weight: 700; color: #334155; }
+    .nav-links a:hover { color: var(--teal); }
+    .nav-partner { color: var(--teal) !important; border: 1px solid rgba(26,134,143,0.4); padding: 4px 10px; border-radius: 6px; font-size: .78rem; }
+    .nav-cta {
+      background: linear-gradient(135deg, var(--orange), var(--orange-dark)); color: #fff;
+      font-weight: 900; padding: 10px 18px; border-radius: 8px; font-size: .84rem;
+      box-shadow: 0 4px 12px rgba(249,115,22,0.32); white-space: nowrap;
+    }
+    @media (max-width: 960px) { .nav-links { display: none; } }
+
+    /* FULL-BLEED DIAGONAL HERO OVER REAL 12-CARD COURSE THUMBNAIL WALL (DMM EXACT) */
+    .hero-v5 {
+      position: relative; overflow: hidden; min-height: 550px;
+      background: #0d2238; color: #fff; display: flex; align-items: center;
+    }
+    .hero-wall-grid {
+      position: absolute; top: -30px; right: -30px; width: 52%; height: 120%;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 11px;
+      transform: rotate(-7deg); opacity: 0.98; z-index: 0;
+    }
+    @media (max-width: 900px) { .hero-wall-grid { display: none; } }
+    .wall-tile {
+      border-radius: 10px; padding: 14px 12px; color: #fff; font-weight: 900;
+      display: flex; flex-direction: column; justify-content: space-between;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.24);
+      position: relative; overflow: hidden; min-height: 112px;
+    }
+    .wall-tile::before {
+      content: ""; position: absolute; inset: 0; opacity: 0.28;
+      background: url("../assets/thumb_bg_1.png") center/cover no-repeat;
+    }
+    .wall-tile.alt::before { background-image: url("../assets/thumb_bg_2.png"); }
+    .wall-tile > * { position: relative; z-index: 1; }
+    .wt-badge { display: inline-block; font-size: .64rem; background: rgba(255,255,255,0.22); padding: 2px 7px; border-radius: 4px; width: fit-content; }
+    .wt-title { font-size: .88rem; line-height: 1.3; text-shadow: 0 2px 6px rgba(0,0,0,0.45); }
+    .wt-c1 { background: linear-gradient(135deg, #1d4ed8, #0284c7); }
+    .wt-c2 { background: linear-gradient(135deg, #0f766e, #059669); }
+    .wt-c3 { background: linear-gradient(135deg, #7e22ce, #4f46e5); }
+    .wt-c4 { background: linear-gradient(135deg, #c2410c, #ea580c); }
+    .wt-c5 { background: linear-gradient(135deg, #0369a1, #0e7490); }
+    .wt-c6 { background: linear-gradient(135deg, #be123c, #e11d48); }
+    .hero-diag-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(130deg, #0b1e36 0%, #134055 58%, #166a78 100%);
+      clip-path: polygon(0 0, 58% 0, 48% 100%, 0 100%);
+    }
+    @media (max-width: 900px) {
+      .hero-diag-overlay { clip-path: none; background: linear-gradient(180deg, rgba(11,30,54,0.94) 0%, rgba(19,64,85,0.90) 100%); }
+      .hero-v5 { min-height: auto; padding: 36px 0 40px; }
+    }
+    .hero-inner {
+      position: relative; z-index: 2; padding: 48px 20px 54px;
+      display: grid; grid-template-columns: 1.08fr 0.92fr; gap: 28px; align-items: end;
+    }
+    @media (max-width: 900px) { .hero-inner { grid-template-columns: minmax(0,1fr); padding: 12px 20px; } }
+    .hero-kicker { font-size: .92rem; font-weight: 800; color: #7dd3fc; margin: 0 0 8px; letter-spacing: .02em; }
+    .hero-v5 h1 { font-size: clamp(1.85rem, 3.6vw, 2.7rem); font-weight: 900; line-height: 1.32; margin: 0 0 14px; }
+    .hl-dark {
+      display: inline-block; background: #ffffff; color: #0b1e36; padding: 2px 13px;
+      border-radius: 5px; margin: 3px 5px 3px 0; box-shadow: 0 4px 14px rgba(0,0,0,0.22);
+    }
+    .hl-gold {
+      display: inline-block; background: linear-gradient(135deg, #06c755, #10b981); color: #ffffff; padding: 2px 13px;
+      border-radius: 5px; margin: 3px 5px 3px 0; box-shadow: 0 4px 14px rgba(6,199,85,0.3);
+    }
+    .hero-desc { font-size: .92rem; color: #e2e8f0; margin: 0 0 20px; max-width: 520px; }
+    .circle-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+    .c-badge {
+      width: 92px; height: 92px; border-radius: 50%; background: #fff; color: var(--teal-dark);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; box-shadow: 0 10px 24px rgba(0,0,0,0.3); border: 3px solid #7dd3fc; padding: 4px;
+    }
+    .c-badge small { font-size: .64rem; font-weight: 800; color: #475569; line-height: 1.15; }
+    .c-badge strong { font-family: "Inter", "Noto Sans JP", sans-serif; font-size: 1.05rem; font-weight: 900; color: #0284c7; line-height: 1.15; margin-top: 2px; }
+    .hero-yellow-bar {
+      display: inline-block; background: #fde047; color: #0f172a; font-weight: 900;
+      font-size: .84rem; padding: 6px 14px; border-radius: 4px; box-shadow: 0 6px 16px rgba(0,0,0,0.22);
+    }
+
+    /* BOTTOM-RIGHT FLOATING 4-CROWN RIBBON (DMM CLONE) */
+    .ribbon-card {
+      background: rgba(255,255,255,0.97); color: var(--ink); border-radius: 12px; overflow: hidden;
+      box-shadow: 0 20px 44px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.6);
+    }
+    .ribbon-top {
+      background: var(--navy); color: #fff; font-weight: 900; font-size: .84rem;
+      padding: 9px 14px; text-align: center; letter-spacing: .02em;
+    }
+    .ribbon-top span { color: #fde047; }
+    .ribbon-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 6px; padding: 14px 10px; }
+    @media (max-width: 560px) { .ribbon-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+    .r-item { text-align: center; padding: 6px 4px; border-right: 1px solid #e2e8f0; }
+    .r-item:last-child { border-right: none; }
+    .r-item small { display: block; font-size: .68rem; font-weight: 800; color: #475569; }
+    .r-item strong { display: block; font-family: "Inter", "Noto Sans JP", sans-serif; font-size: 1.18rem; font-weight: 900; color: #b45309; margin-top: 2px; }
+
+    /* DUAL CTA STRIP RIGHT BELOW HERO (DMM SIGNATURE) */
+    .dual-cta-strip { background: #fff; padding: 22px 0; border-bottom: 1px solid var(--border); }
+    .dual-cta-row { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+    .btn-outline-org {
+      border: 2px solid var(--orange); color: var(--orange-dark); background: #fff;
+      font-weight: 900; font-size: .96rem; padding: 14px 28px; border-radius: 8px;
+      min-width: 260px; text-align: center;
+    }
+    .btn-orange {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      background: linear-gradient(135deg, #f97316, #ea580c); color: #fff;
+      font-weight: 900; font-size: 1rem; padding: 15px 32px; border-radius: 8px;
+      min-width: 280px; text-align: center; box-shadow: 0 10px 24px rgba(249,115,22,0.34);
+      max-width: 100%;
+    }
+    .btn-orange:hover { filter: brightness(1.06); }
+
+    /* BAND 2: DMM DEEP TEAL SHOWCASE */
+    .band-dmm-teal { background: var(--teal-dark); padding: 44px 0 48px; }
+    .dmm-grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 18px; }
+    @media (max-width: 860px) { .dmm-grid-3 { grid-template-columns: minmax(0,1fr); } }
+    .dmm-res-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 14px 30px rgba(0,0,0,0.22); }
+    .dmm-res-bar { background: var(--teal); color: #fff; font-weight: 900; font-size: .82rem; padding: 7px 12px; text-align: center; }
+    .dmm-res-metric { padding: 12px 12px 8px; text-align: center; display: flex; align-items: baseline; justify-content: center; gap: 6px; flex-wrap: wrap; }
+    .m-pre { font-size: .82rem; color: #64748b; font-weight: 700; }
+    .m-arr { color: var(--orange); font-weight: 900; font-size: .82rem; }
+    .m-big { font-family: "Inter", "Noto Sans JP", sans-serif; font-size: 1.45rem; font-weight: 900; color: var(--orange-dark); }
+    .dmm-res-img img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-top: 1px solid #f1f5f9; border-bottom: 1px solid #f1f5f9; }
+    /* CRISP REAL-UI MOCKUP INSIDE BENCHMARK & BONUS CARDS (ZERO AI SLOP) */
+    .ui-shot { margin: 4px 12px 8px; border: 1px solid #cbd5e1; border-radius: 10px; overflow: hidden; background: #f8fafc; box-shadow: inset 0 1px 0 #fff; }
+    .ui-shot-bar { display: flex; align-items: center; gap: 5px; padding: 6px 10px; background: #e2e8f0; font-size: .68rem; color: #334155; font-weight: 800; }
+    .ui-shot-bar span { width: 7px; height: 7px; border-radius: 50%; background: #94a3b8; display: inline-block; }
+    .ui-shot-bar em { font-style: normal; margin-left: 4px; }
+    .ui-pipe, .ui-sheet, .ui-gate { padding: 10px 11px; font-size: .74rem; display: flex; flex-direction: column; gap: 6px; }
+    .uip-row { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 6px 8px; border-radius: 6px; border: 1px solid #e2e8f0; color: #1e293b; font-weight: 700; }
+    .uip-ok { color: #059669; font-weight: 900; }
+    .uip-prog { height: 6px; background: #e2e8f0; border-radius: 999px; overflow: hidden; margin-top: 2px; }
+    .uip-prog div { height: 100%; background: linear-gradient(90deg, #0ea5e9, #10b981); border-radius: 999px; }
+    .uis-row { display: grid; grid-template-columns: 1.25fr 0.7fr 0.85fr; align-items: center; padding: 5px 7px; background: #fff; border-radius: 5px; border: 1px solid #e2e8f0; font-weight: 700; }
+    .uis-head { background: #f1f5f9; color: #475569; font-size: .68rem; }
+    .u-g { color: #059669; } .u-r { color: #e11d48; }
+    .u-tag-g { font-style: normal; background: #dcfce7; color: #15803d; padding: 1px 6px; border-radius: 999px; font-size: .66rem; text-align: center; }
+    .u-tag-r { font-style: normal; background: #ffe4e6; color: #be123c; padding: 1px 6px; border-radius: 999px; font-size: .66rem; text-align: center; }
+    .uig-item { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 7px 9px; border-radius: 6px; border-left: 3px solid #10b981; border-top: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; font-weight: 800; color: #0f172a; }
+    .uig-item em { font-style: normal; background: #10b981; color: #fff; font-size: .64rem; padding: 2px 7px; border-radius: 4px; }
+    .bonus-doc {
+      border-radius: 12px; padding: 16px 14px; margin: 10px 0 14px; min-height: 156px;
+      display: flex; flex-direction: column; justify-content: space-between; text-align: center;
+      box-shadow: 0 8px 18px rgba(15,23,42,0.10); border: 1px solid #e2e8f0;
+    }
+    .bdoc-csv { background: linear-gradient(135deg, #ecfdf5 0%, #e0f2fe 100%); border-color: #6ee7b7; }
+    .bdoc-flow { background: linear-gradient(135deg, #eff6ff 0%, #f0fdfa 100%); border-color: #7dd3fc; }
+    .bdoc-vid { background: linear-gradient(135deg, #0f172a 0%, #134055 100%); color: #fff; border-color: #38bdf8; }
+    .bdoc-top { font-size: .68rem; font-weight: 900; color: #0369a1; background: rgba(255,255,255,0.85); padding: 3px 9px; border-radius: 999px; width: fit-content; margin: 0 auto 6px; }
+    .bdoc-title { font-size: 1.04rem; font-weight: 900; line-height: 1.3; color: #0f172a; }
+    .bdoc-vid .bdoc-title { color: #fff; }
+    .bdoc-sub { font-size: .74rem; color: #bae6fd; font-weight: 700; margin-top: 4px; }
+    .bdoc-mini { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; font-size: .72rem; font-weight: 800; color: #0f172a; }
+    .bdoc-mini span { background: #fff; padding: 4px 8px; border-radius: 6px; border: 1px solid #cbd5e1; }
+    .bdoc-mini b { color: #059669; }
+    .bdoc-steps { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; margin-top: 10px; font-size: .68rem; font-weight: 800; color: #0f172a; }
+    .bdoc-steps span { background: #fff; padding: 3px 7px; border-radius: 5px; border: 1px solid #93c5fd; }
+    .bdoc-play { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg,#f97316,#ea580c); color: #fff; display: flex; align-items: center; justify-content: center; margin: 4px auto 6px; font-size: 1.1rem; box-shadow: 0 6px 16px rgba(249,115,22,0.45); }
+    .dmm-res-foot { padding: 12px 14px; text-align: center; }
+    .dmm-res-foot strong { display: block; font-size: .9rem; color: var(--ink); }
+    .dmm-res-foot span { display: inline-block; margin-top: 4px; font-size: .74rem; color: var(--teal); font-weight: 800; background: #ecfeff; padding: 2px 10px; border-radius: 999px; }
+
+    /* GENERAL SECTIONS */
+    section { padding: 68px 0; }
+    .band-white { background: #fff; }
+    .band-gray { background: var(--gray-bg); }
+    .sec-head { text-align: center; max-width: 780px; margin: 0 auto 38px; }
+    .eyebrow { display: inline-block; font-size: .76rem; font-weight: 900; color: var(--teal); background: #e0f2fe; padding: 4px 14px; border-radius: 999px; margin-bottom: 10px; letter-spacing: .04em; }
+    h2 { font-size: clamp(1.45rem, 2.8vw, 2.15rem); font-weight: 900; line-height: 1.35; margin: 0 0 10px; text-wrap: balance; }
+    h3 { font-size: 1.05rem; font-weight: 900; margin: 0 0 8px; line-height: 1.4; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 22px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 24px; }
+    @media (max-width: 840px) { .grid-3, .grid-2 { grid-template-columns: minmax(0,1fr); } section { padding: 48px 0; } }
+
+    /* SHIFT-AI STYLE PROBLEM CARDS WITH FLOATING BLACK CIRCLE + EDITORIAL ILLUSTRATION */
+    .pain-card-v5 {
+      position: relative; background: #fff; border: 1px solid var(--border); border-radius: 16px;
+      padding: 28px 22px 24px; text-align: center; box-shadow: 0 10px 26px rgba(15,23,42,0.06); margin-top: 14px;
+    }
+    .pain-circle {
+      position: absolute; top: -18px; left: 50%; transform: translateX(-50%);
+      width: 38px; height: 38px; border-radius: 50%; background: #111827; color: #fff;
+      font-family: "Inter", sans-serif; font-weight: 900; font-size: .92rem;
+      display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .pain-illust { width: 100%; margin: 4px 0 14px; overflow: hidden; border-radius: 10px; background: #fff; }
+    .pain-illust img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: contain; }
+    .pain-card-v5 p { font-size: .88rem; color: var(--muted); text-align: left; margin: 0; }
+
+    .light-ba-grid {
+      margin-top: 32px; display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: center;
+    }
+    @media (max-width: 820px) { .light-ba-grid { grid-template-columns: minmax(0,1fr); } .lba-arrow { transform: rotate(90deg); text-align: center; } }
+    .lba-card { border-radius: 16px; padding: 22px 24px; border: 1px solid var(--border); box-shadow: 0 8px 24px rgba(15,23,42,0.06); }
+    .lba-before { background: #fff1f2; border-color: #fecdd3; }
+    .lba-after { background: #f0fdfa; border-color: #99f6e4; border-width: 2px; }
+    .lba-tag-bad { display: inline-block; background: #e11d48; color: #fff; font-weight: 900; font-size: .8rem; padding: 4px 12px; border-radius: 6px; margin-bottom: 12px; }
+    .lba-tag-good { display: inline-block; background: #0f766e; color: #fff; font-weight: 900; font-size: .8rem; padding: 4px 12px; border-radius: 6px; margin-bottom: 12px; }
+    .lba-card ul { margin: 0; padding-left: 18px; font-size: .9rem; color: #334155; }
+    .lba-card li { margin-bottom: 6px; }
+    .lba-arrow { font-size: 1.5rem; font-weight: 900; color: var(--orange); }
+
+    /* BAND 4: DMM VIBRANT TEAL-CYAN BONUS GRADIENT */
+    .band-bonus-grad {
+      background: linear-gradient(135deg, #134055 0%, #1A868F 52%, #09A7CE 100%);
+      color: #fff;
+    }
+    .bonus-head { text-align: center; margin-bottom: 34px; }
+    .bonus-sub { margin: 0 0 6px; font-weight: 800; font-size: 1rem; color: #e0f2fe; }
+    .gold-num { color: #fde047; font-size: 1.2em; }
+    .bonus-grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 20px; }
+    @media (max-width: 840px) { .bonus-grid-3 { grid-template-columns: minmax(0,1fr); } }
+    .bonus-tile {
+      position: relative; background: #fff; color: var(--ink); border-radius: 16px;
+      padding: 20px 18px 22px; box-shadow: 0 16px 34px rgba(0,0,0,0.22);
+    }
+    .bonus-no {
+      position: absolute; top: -14px; left: 16px; background: var(--navy); color: #fde047;
+      font-family: "Inter", sans-serif; font-weight: 900; font-size: 1.1rem; padding: 4px 12px; border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    }
+    .bonus-img { border-radius: 10px; overflow: hidden; margin: 10px 0 14px; background: #0b132b; }
+    .bonus-img img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+    .bonus-tile p { font-size: .86rem; color: var(--muted); margin: 0; }
+    .csv-preview-panel {
+      margin-top: 26px; background: rgba(11,30,54,0.88); border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 14px; padding: 18px 20px;
+    }
+    .csv-panel-title { font-size: .86rem; font-weight: 800; color: #fde047; margin-bottom: 10px; }
+    .mini-table { width: 100%; border-collapse: collapse; font-size: .84rem; color: #f8fafc; }
+    .mini-table th, .mini-table td { padding: 10px 12px; border: 1px solid rgba(255,255,255,0.16); text-align: left; }
+    .mini-table th { background: rgba(255,255,255,0.08); }
+    .t-good { color: #4ade80; font-weight: 900; } .t-bad { color: #fda4af; font-weight: 900; }
+    .pill-go { background: #16a34a; color: #fff; padding: 2px 10px; border-radius: 999px; font-weight: 800; font-size: .74rem; }
+    .pill-ng { background: #e11d48; color: #fff; padding: 2px 10px; border-radius: 999px; font-weight: 800; font-size: .74rem; }
+
+    /* COMPARISON TABLE & MODULES */
+    .table-wrap { overflow-x: auto; border-radius: 14px; box-shadow: 0 12px 30px rgba(15,23,42,0.08); border: 1px solid var(--border); }
+    .cmp-table { width: 100%; border-collapse: collapse; font-size: .9rem; min-width: 680px; background: #fff; }
+    .cmp-table th, .cmp-table td { padding: 14px 16px; border-bottom: 1px solid var(--border); text-align: left; }
+    .cmp-table thead th { background: #f8fafc; font-weight: 900; }
+    .cmp-ours { background: linear-gradient(135deg, var(--teal-dark), var(--teal)) !important; color: #fff !important; }
+    .cmp-ours-cell { background: #f0fdfa; color: #115e59; border-left: 2px solid var(--teal); border-right: 2px solid var(--teal); }
+
+    .mod-card-v5 { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 22px; box-shadow: 0 6px 20px rgba(15,23,42,0.05); }
+    .mod-pill { display: inline-block; background: #e0f2fe; color: var(--teal-dark); font-family: "Inter", sans-serif; font-weight: 900; font-size: .74rem; padding: 3px 10px; border-radius: 999px; margin-bottom: 8px; }
+    .mod-card-v5 p { font-size: .88rem; color: var(--muted); margin: 0; }
+
+    /* AUTHENTIC LINE CHAT */
+    .line-phone { background: #7494c0; border-radius: 22px; padding: 18px; box-shadow: 0 18px 40px rgba(15,23,42,0.16); border: 6px solid #0f172a; }
+    .line-bar { color: #fff; font-weight: 800; font-size: .84rem; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.22); }
+    .bubble-u { background: #8de055; color: #0f172a; padding: 10px 14px; border-radius: 16px 16px 3px 16px; margin: 0 0 12px auto; max-width: 85%; font-size: .88rem; font-weight: 700; }
+    .bubble-b { background: #fff; color: #0f172a; padding: 12px 14px; border-radius: 16px 16px 16px 3px; max-width: 92%; font-size: .86rem; }
+
+    .offer-card { background: linear-gradient(135deg, var(--navy), var(--teal-dark)); color: #fff; border-radius: 20px; padding: 44px 28px; text-align: center; box-shadow: 0 22px 50px rgba(11,30,54,0.26); }
+    .step3-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; margin-top: 24px; text-align: left; }
+    @media (max-width: 720px) { .step3-grid { grid-template-columns: minmax(0,1fr); } }
+    .step3-card { background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.18); border-radius: 12px; padding: 14px 16px; font-size: .84rem; color: #e2e8f0; }
+    .step3-card strong { color: #fde047; display: block; margin-bottom: 3px; }
+    details { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 18px 22px; margin-bottom: 12px; }
+    summary { font-weight: 900; cursor: pointer; font-size: .96rem; }
+    details p { color: var(--muted); margin: 10px 0 0; font-size: .9rem; }
+    footer { background: var(--navy); color: #94a3b8; padding: 36px 0; font-size: .82rem; text-align: center; }
+    .sticky-cta {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 60;
+      background: rgba(255,255,255,0.97); border-top: 1px solid var(--border); padding: 10px 16px;
+      display: flex; align-items: center; justify-content: center; box-shadow: 0 -6px 22px rgba(0,0,0,0.08);
+    }
+    .sticky-cta .btn-orange { padding: 12px 26px; font-size: .92rem; min-width: min(520px, 100%); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav-inner">
+      <div class="brand">
+        <svg width="26" height="26" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <rect width="28" height="28" rx="7" fill="url(#lg1)"/>
+          <path d="M11 8.5L20 14L11 19.5V8.5Z" fill="#fff"/>
+          <defs><linearGradient id="lg1" x1="0" y1="0" x2="28" y2="28"><stop stop-color="#134055"/><stop offset="1" stop-color="#09A7CE"/></linearGradient></defs>
+        </svg>
+        AI Creator Studio <span class="brand-tag">非属人YouTube</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#results">実測結果</a>
+        <a href="#pain">解決できる壁</a>
+        <a href="#gift-preview">3大無料特典</a>
+        <a href="#compare">他社比較</a>
+        <a href="#faq">よくある質問</a>
+        <a class="nav-partner" href="../partner_deck/index.html">法人・OEM提携</a>
+      </nav>
+      <a class="nav-cta js-line-cta" href="https://lin.ee/ZsuT0Ei">無料特典を受け取る →</a>
+    </div>
+  </header>
+
+  <!-- BAND 1: FULL-BLEED DIAGONAL HERO OVER 12-CARD COURSE THUMBNAIL WALL (DMM EXACT) -->
+  <section class="hero-v5" style="padding:0;">
+    <div class="hero-wall-grid" aria-hidden="true">
+      <div class="wall-tile wt-c1"><span class="wt-badge">TRACK A</span><div class="wt-title">非属人YouTube<br>AI制作OSコース</div></div>
+      <div class="wall-tile alt wt-c2"><span class="wt-badge">RESEARCH</span><div class="wt-title">競合10ch倍勝率<br>リサーチ自動化</div></div>
+      <div class="wall-tile wt-c4"><span class="wt-badge">CTR設計</span><div class="wt-title">0.5秒サムネ検証<br>クリック率改善</div></div>
+      <div class="wall-tile alt wt-c3"><span class="wt-badge">AUDIO</span><div class="wt-title">-11 LUFS 自動音響<br>プロ音量正規化</div></div>
+      <div class="wall-tile wt-c5"><span class="wt-badge">SUBTITLE</span><div class="wt-title">Whisper自動字幕<br>誤差0.15秒同期</div></div>
+      <div class="wall-tile alt wt-c6"><span class="wt-badge">ANALYTICS</span><div class="wt-title">維持率ドロップ解析<br>改善PDCAコース</div></div>
+      <div class="wall-tile wt-c2"><span class="wt-badge">SETUP</span><div class="wt-title">1コマンド環境構築<br>Mac/Win自動診断</div></div>
+      <div class="wall-tile alt wt-c1"><span class="wt-badge">AI BOT</span><div class="wt-title">24時間LINE AI伴走<br>エラー5秒解決</div></div>
+      <div class="wall-tile wt-c3"><span class="wt-badge">SCRIPT</span><div class="wt-title">5〜10秒画変え<br>維持率連動台本</div></div>
+      <div class="wall-tile alt wt-c4"><span class="wt-badge">QUALITY</span><div class="wt-title">公開前品質ゲート<br>破綻ゼロ自動検査</div></div>
+      <div class="wall-tile wt-c5"><span class="wt-badge">SCALE</span><div class="wt-title">複数ch横展開<br>資産化ロードマップ</div></div>
+      <div class="wall-tile alt wt-c6"><span class="wt-badge">MONETIZE</span><div class="wt-title">広告×アフィリ×導線<br>オーナー収益設計</div></div>
+    </div>
+    <div class="hero-diag-overlay"></div>
+    <div class="container hero-inner">
+      <div>
+        <p class="hero-kicker">顔出し・撮影ゼロ × 自社開発OSで作業時間1/5</p>
+        <h1>手作業で編集するな。<br><span class="hl-dark">非属人YouTube</span>で<br><span class="hl-gold">稼ぐ制作OS</span>を手に入れろ。</h1>
+        <p class="hero-desc">競合10ch倍勝率分析 → 自動動画制作 → 商業レベルの音量・字幕・サムネ検証まで一気通貫で動く自社スタジオOS一式。</p>
+        <div class="circle-row">
+          <div class="c-badge"><small>LINE登録</small><strong>無料 0円</strong></div>
+          <div class="c-badge"><small>実物CSV</small><strong>即時配布</strong></div>
+          <div class="c-badge"><small>営業なし</small><strong>ブロックOK</strong></div>
+        </div>
+        <div class="hero-yellow-bar">今すぐ使える「競合10ch倍勝率CSV＋自動化構成図」を無料配布中！</div>
+      </div>
+
+      <div class="ribbon-card">
+        <div class="ribbon-top">自社スタジオ実戦稼働OS <span>4大メリット</span> を標準装備</div>
+        <div class="ribbon-grid">
+          <div class="r-item"><small>制作時間圧縮</small><strong>1 / 5</strong></div>
+          <div class="r-item"><small>伸びる市場判定</small><strong>倍勝率2.0x</strong></div>
+          <div class="r-item"><small>音響・サムネ</small><strong>自動検品</strong></div>
+          <div class="r-item"><small>エラー即解決</small><strong>24h AI伴走</strong></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DUAL CTA BAR RIGHT BELOW HERO (DMM SIGNATURE) -->
+  <div class="dual-cta-strip">
+    <div class="container dual-cta-row">
+      <a class="btn-outline-org" href="#gift-preview">無料3大特典の中身を見る</a>
+      <a class="btn-orange js-line-cta" href="https://lin.ee/ZsuT0Ei">公式LINEで無料特典を受け取る →</a>
+    </div>
+  </div>
+
+  <!-- BAND 2: DMM-STYLE DEEP TEAL SHOWCASE WITH CRISP READABLE REAL-UI BENCHMARK CARDS -->
+  <section id="results" class="band-dmm-teal">
+    <div class="container">
+      <div class="dmm-grid-3">
+        <div class="dmm-res-card">
+          <div class="dmm-res-bar">YouTube動画制作の自動化</div>
+          <div class="dmm-res-metric">
+            <span class="m-pre">手作業 8.0時間</span>
+            <span class="m-arr">▶▶</span>
+            <span class="m-big">1.5時間</span>
+          </div>
+          <div class="ui-shot">
+            <div class="ui-shot-bar"><span></span><span></span><span></span><em>studio_run.py — 自動制作パイプライン</em></div>
+            <div class="ui-pipe">
+              <div class="uip-row"><span>1. 競合10ch抽出</span><b class="uip-ok">完了 5分</b></div>
+              <div class="uip-row"><span>2. 台本＆自動字幕同期</span><b class="uip-ok">完了 20分</b></div>
+              <div class="uip-row"><span>3. 音響調整＆品質検査</span><b class="uip-ok">自動PASS</b></div>
+              <div class="uip-prog"><div style="width:94%;"></div></div>
+            </div>
+          </div>
+          <div class="dmm-res-foot">
+            <strong>制作スピードが約5倍に圧縮</strong>
+            <span>AI制作スタジオOS（自社実測）</span>
+          </div>
+        </div>
+
+        <div class="dmm-res-card">
+          <div class="dmm-res-bar">競合10ch ジャンル選定</div>
+          <div class="dmm-res-metric">
+            <span class="m-pre">感覚リサーチ</span>
+            <span class="m-arr">▶▶</span>
+            <span class="m-big">倍勝率 2.0x+</span>
+          </div>
+          <div class="ui-shot">
+            <div class="ui-shot-bar"><span></span><span></span><span></span><em>競合10ch倍勝率シート.csv</em></div>
+            <div class="ui-sheet">
+              <div class="uis-row uis-head"><span>チャンネル</span><span>倍勝率</span><span>判定</span></div>
+              <div class="uis-row"><span>雑学ch (1.2万)</span><b class="u-g">4.00x</b><i class="u-tag-g">参入GO</i></div>
+              <div class="uis-row"><span>教養ch (0.8万)</span><b class="u-g">2.65x</b><i class="u-tag-g">参入GO</i></div>
+              <div class="uis-row"><span>歴史ch (4.5万)</span><b class="u-r">0.49x</b><i class="u-tag-r">見送り</i></div>
+            </div>
+          </div>
+          <div class="dmm-res-foot">
+            <strong>伸びる市場だけを5分で数値判定</strong>
+            <span>競合10ch倍勝率シート実測</span>
+          </div>
+        </div>
+
+        <div class="dmm-res-card">
+          <div class="dmm-res-bar">商業レベルの視聴品質</div>
+          <div class="dmm-res-metric">
+            <span class="m-pre">手作業の品質ブレ</span>
+            <span class="m-arr">▶▶</span>
+            <span class="m-big">プロ品質へ自動化</span>
+          </div>
+          <div class="ui-shot">
+            <div class="ui-shot-bar"><span></span><span></span><span></span><em>公開前 品質自動チェック</em></div>
+            <div class="ui-gate">
+              <div class="uig-item"><span>✓ 聞きやすい音量へ自動統一</span><em>PASS</em></div>
+              <div class="uig-item"><span>✓ 字幕の音ズレ誤差 0.15秒以内</span><em>PASS</em></div>
+              <div class="uig-item"><span>✓ スマホ縮小サムネ即読テスト</span><em>PASS</em></div>
+            </div>
+          </div>
+          <div class="dmm-res-foot">
+            <strong>離脱を防ぐ音響＆サムネ検査を自動化</strong>
+            <span>公開前品質ゲート標準搭載</span>
+          </div>
+        </div>
+      </div>
+      <p style="text-align:center;font-size:.76rem;color:rgba(255,255,255,0.78);margin:14px 0 0;">※ 上記は自社スタジオ実戦パイプラインでの実測ベンチマーク値です。</p>
+    </div>
+  </section>
+  <!-- BAND 3: SHIFT-AI STYLE PROBLEM CARDS + ILLUSTRATIONS -->
+  <section id="pain" class="band-white">
+    <div class="container">
+      <div class="sec-head">
+        <span class="eyebrow">PROBLEM / よくある挫折パターン</span>
+        <h2>非属人YouTubeを始めたのに<br>「伸びない・続かない」3つの壁</h2>
+      </div>
+      <div class="grid-3">
+        <div class="pain-card-v5">
+          <div class="pain-circle">01</div>
+          <div class="pain-illust"><img src="../assets/pain_01.png" alt="伸びるジャンル選定が感覚頼み" /></div>
+          <h3>伸びるジャンル選定が感覚頼み</h3>
+          <p>「なんとなく流行っていそう」で始めて再生回数が300回で止まる。競合10chの倍勝率と下振れ耐性をデータで抜く型がありません。</p>
+        </div>
+        <div class="pain-card-v5">
+          <div class="pain-circle">02</div>
+          <div class="pain-illust"><img src="../assets/pain_02.png" alt="1本作るのに8時間かかり続かない" /></div>
+          <h3>1本作るのに8時間かかり続かない</h3>
+          <p>台本・音声・映像・字幕・サムネを毎回バラバラのツールで手作業していると、週2本出すだけで本業が崩壊します。</p>
+        </div>
+        <div class="pain-card-v5">
+          <div class="pain-circle">03</div>
+          <div class="pain-illust"><img src="../assets/pain_03.png" alt="投稿後の改善ポイントが分からない" /></div>
+          <h3>投稿後の改善ポイントが分からない</h3>
+          <p>維持率グラフやCTRを見ても「次の動画のどこを直すべきか」が分からず、同じ失敗を繰り返してしまいます。</p>
+        </div>
+      </div>
+
+      <div class="light-ba-grid">
+        <div class="lba-card lba-before">
+          <div class="lba-tag-bad">BEFORE：従来の手作業運用（1本 8.0時間）</div>
+          <ul>
+            <li>感覚でジャンルを選び、再生300回で止まる</li>
+            <li>台本・音声・字幕・サムネを毎回バラバラに手作業</li>
+            <li>環境エラーや設定ミスで手が止まり、週1本も続かない</li>
+          </ul>
+        </div>
+        <div class="lba-arrow">▶▶</div>
+        <div class="lba-card lba-after">
+          <div class="lba-tag-good">AFTER：AI制作スタジオOS（1本 1.5時間）</div>
+          <ul>
+            <li><strong>倍勝率2.0x+</strong>の勝ち市場だけをデータで先に確定</li>
+            <li>自動字幕・<strong>-11 LUFS音響</strong>・0.5秒サムネ検査まで一気通貫</li>
+            <li>24h LINE AI伴走Botがエラーを<strong>5秒で即解決</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BAND 4: DMM-STYLE VIBRANT TEAL-CYAN BONUS TILES (01 / 02 / 03) -->
+  <section id="gift-preview" class="band-bonus-grad">
+    <div class="container">
+      <div class="bonus-head">
+        <p class="bonus-sub">公式LINE登録で</p>
+        <h2>豪華<span class="gold-num">3大実物特典</span>を全員に無料プレゼント！</h2>
+      </div>
+      <div class="bonus-grid-3">
+        <div class="bonus-tile">
+          <div class="bonus-no">01</div>
+          <div class="bonus-doc bdoc-csv">
+            <div class="bdoc-top">無料配布テンプレート（CSV）</div>
+            <div class="bdoc-title">競合10ch倍勝率<br>自動判定シート</div>
+            <div class="bdoc-mini">
+              <span>倍勝率 4.00x → <b>参入GO</b></span>
+              <span>下振れ 1.50x → <b>安定合格</b></span>
+            </div>
+          </div>
+          <h3>そのまま使える<br>競合10ch倍勝率CSVシート</h3>
+          <p>倍勝率2.0x＆下振れ耐性0.8xを自動判定。Excel/スプレッドシート即対応。</p>
+        </div>
+        <div class="bonus-tile">
+          <div class="bonus-no">02</div>
+          <div class="bonus-doc bdoc-flow">
+            <div class="bdoc-top">完全解説ガイド（Web版）</div>
+            <div class="bdoc-title">AI制作スタジオOS<br>5ステップ自動化構成図</div>
+            <div class="bdoc-steps">
+              <span>1.市場抽出</span><span>2.台本設計</span><span>3.字幕＆音響</span><span>4.品質検査</span><span>5.数値改善</span>
+            </div>
+          </div>
+          <h3>作業時間を1/5にする<br>5ステップ自動化構成図</h3>
+          <p>市場調査→台本→自動字幕＆音響→サムネ検査→改善の全設計図。</p>
+        </div>
+        <div class="bonus-tile">
+          <div class="bonus-no">03</div>
+          <div class="bonus-doc bdoc-vid">
+            <div class="bdoc-top">LINE登録者限定アーカイブ</div>
+            <div class="bdoc-play">▶</div>
+            <div class="bdoc-title">35分 ノーカット実演デモ</div>
+            <div class="bdoc-sub">1コマンド稼働＆AI伴走Bot実画面</div>
+          </div>
+          <h3>1コマンド実働画面<br>実演デモアーカイブ視聴権</h3>
+          <p>プロンプト論ではなく、実戦稼働するAI制作OSのリアル画面をノーカット公開。</p>
+        </div>
+      </div>
+
+      <div class="csv-preview-panel">
+        <div class="csv-panel-title">📄 特典01「競合10ch倍勝率シート」実物プレビュー（登録直後にCSV配布）</div>
+        <div style="overflow-x:auto;">
+          <table class="mini-table">
+            <thead>
+              <tr><th>チャンネル例</th><th>倍勝率（中央値÷登録者）</th><th>下振れ耐性（最低÷登録者）</th><th>参入判定</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>〇〇雑学ch（登録1.2万）</td>
+                <td class="t-good">4.00x</td><td class="t-good">1.50x</td><td><span class="pill-go">参入GO</span></td>
+              </tr>
+              <tr>
+                <td>△△歴史ch（登録4.5万）</td>
+                <td class="t-bad">0.49x</td><td class="t-bad">0.18x</td><td><span class="pill-ng">見送り</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:28px;">
+        <a class="btn-orange js-line-cta" href="https://lin.ee/ZsuT0Ei">🎁 公式LINEで3大実物特典を無料で受け取る →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BAND 5: COMPETITOR COMPARISON MATRIX (WHITE) -->
+  <section id="compare" class="band-white">
+    <div class="container">
+      <div class="sec-head">
+        <span class="eyebrow">COMPARISON / 他社スクールとの決定的な違い</span>
+        <h2>なぜ「プロンプト解説スクール」ではなく<br><span style="color:#0d7c86;">AI制作スタジオOS</span>なのか？</h2>
+      </div>
+      <div class="table-wrap">
+        <table class="cmp-table">
+          <thead>
+            <tr>
+              <th>比較項目</th>
+              <th>一般的なAIプロンプトスクール</th>
+              <th>動画編集・下請け案件スクール</th>
+              <th class="cmp-ours">当アカデミー（AI制作スタジオOS）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>手に入るもの</strong></td>
+              <td>ChatGPTの質問集・動画講義のみ</td>
+              <td>Premiere等の手作業編集スキル</td>
+              <td class="cmp-ours-cell"><strong>実戦稼働中の自動制作OS一式＋環境</strong></td>
+            </tr>
+            <tr>
+              <td><strong>収益モデル</strong></td>
+              <td>案件獲得や活用法は自己責任</td>
+              <td>他人の下請け（単価競争・納期消耗）</td>
+              <td class="cmp-ours-cell"><strong>自分の非属人チャンネル資産化（オーナー収益）</strong></td>
+            </tr>
+            <tr>
+              <td><strong>制作時間の圧縮</strong></td>
+              <td>手作業が多く1本5〜8時間かかる</td>
+              <td>1本6〜10時間の労働集約</td>
+              <td class="cmp-ours-cell"><strong>1本1.5時間（1/5へ自動化圧縮）</strong></td>
+            </tr>
+            <tr>
+              <td><strong>環境エラー対応</strong></td>
+              <td>質問チャットで返信待ち（数日）</td>
+              <td>自力検索・放置で挫折しやすい</td>
+              <td class="cmp-ours-cell"><strong>24時間LINE AI伴走Botが5秒で即解決</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  <!-- BAND 6: 6 MODULES & 24H LINE AI BOT -->
+  <section id="curriculum" class="band-gray">
+    <div class="container">
+      <div class="sec-head">
+        <span class="eyebrow">SYSTEM &amp; CURRICULUM</span>
+        <h2>操作解説ではなく<br>「実戦稼働中のAI制作スタジオOS」一式を提供</h2>
+      </div>
+      <div class="grid-3">
+        <div class="mod-card-v5">
+          <div class="mod-head-row"><span class="mod-pill">MODULE 01</span></div>
+          <h3>M1. 1コマンド環境構築（Mac / Win対応）</h3>
+          <p>面倒な初期設定を1コマンドで自動化。エラーが出ても自動診断が原因を特定するため非エンジニアでも初日から稼働。</p>
+        </div>
+        <div class="mod-card-v5">
+          <div class="mod-head-row"><span class="mod-pill">MODULE 02</span></div>
+          <h3>M2. 競合10ch倍勝率＆全編分解リサーチ</h3>
+          <p>倍勝率2.0倍以上・下振れ耐性0.8倍以上の「勝てる市場」だけを抽出し、勝ち動画の構成テンポを数値化。</p>
+        </div>
+        <div class="mod-card-v5">
+          <div class="mod-head-row"><span class="mod-pill">MODULE 03</span></div>
+          <h3>M3. 5〜10秒ビート同期・自動制作パイプライン</h3>
+          <p>視聴者が飽きない5〜10秒刻みの画変え台本と、破綻を事前に弾く品質ゲートで商業水準の動画を安定量産。</p>
+        </div>
+        <div class="mod-card-v5">
+          <div class="mod-head-row"><span class="mod-pill">MODULE 04</span></div>
+          <h3>M4. 自動字幕・商業レベル音量正規化・0.5秒サムネ</h3>
+          <p>音ズレ0.15秒以内の自動字幕、スマホで聞きやすい放送基準の音量自動調整（-11 LUFS）、25%縮小サムネ検査を自動化。</p>
+        </div>
+        <div class="mod-card-v5">
+          <div class="mod-head-row"><span class="mod-pill">MODULE 05</span></div>
+          <h3>M5. YouTube Analytics 改善PDCA</h3>
+          <p>維持率ドロップ箇所とCTRの数字から、次の台本・冒頭フック・サムネを論理的に改善する運用ループを定着。</p>
+        </div>
+        <div class="mod-card-v5">
+          <div class="mod-head-row"><span class="mod-pill">MODULE 06</span></div>
+          <h3>M6. 自分のチャンネル収益化＆横展開</h3>
+          <p>広告収益・概要欄アフィリエイト・自社導線まで、下請けではなく「自分の資産チャンネル」を複数育てる設計。</p>
+        </div>
+      </div>
+
+      <div class="grid-2" style="align-items:center;margin-top:52px;">
+        <div>
+          <span class="eyebrow">24H AI CONTEXT SUPPORT BOT</span>
+          <h2>環境エラーもサムネ相談も<br>5秒で解決する専用LINE AI伴走</h2>
+          <p style="color:var(--muted);font-size:.94rem;margin:0 0 12px;">受講生ごとのOS・現在の進捗・過去履歴を理解したAI運営担当Botが24時間365日即答。挫折の最大要因「エラー放置」をゼロにします。</p>
+          <p style="color:#059669;font-weight:900;font-size:.94rem;">✓ 深夜・休日も5秒で解決コマンドを返答（自動解決率 75〜82%）</p>
+        </div>
+        <div class="line-phone">
+          <div class="line-bar">← AI運営担当Bot（24時間オンライン）</div>
+          <div class="bubble-u">スマホ用のサムネ縮小テストで文字が潰れます…どう直せばいいですか？</div>
+          <div class="bubble-b"><strong>🤖 AI運営担当（受講履歴照合済）</strong><br>25%縮小テストで潰れる原因は文字数過多（12文字超）か縁取り幅不足です。以下2点を直して再出力してください：<br>① タイトルを9文字以内へ圧縮 ② 縁取りを太めに設定して再チェック実行！</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BAND 7: FINAL OFFER + FAQ -->
+  <section id="offer" class="band-white">
+    <div class="container">
+      <div class="offer-card">
+        <span class="eyebrow" style="background:rgba(255,255,255,0.14);color:#fde047;">FREE OFFER / 公式LINE登録限定</span>
+        <h2 style="color:#fff;">まずは無料特典2点セットで<br>「勝てる非属人YouTubeの全体設計」を手に入れてください</h2>
+        <p style="color:#e2e8f0;max-width:700px;margin:0 auto 24px;font-size:.95rem;">① そのまま使える競合10ch倍勝率分析テンプレート（CSV） ／ ② 作業時間を1/5にするAI制作スタジオOS自動化構成図（Webガイド）</p>
+        <a class="btn-orange js-line-cta" href="https://lin.ee/ZsuT0Ei">🎁 公式LINEで3大実物特典を受け取る →</a>
+        <div class="step3-grid">
+          <div class="step3-card"><strong>STEP 1（10秒）</strong>ボタンを押して公式LINEを友だち追加</div>
+          <div class="step3-card"><strong>STEP 2（即時配布）</strong>2択診断をタップするとCSV＆構成図が即届く</div>
+          <div class="step3-card"><strong>STEP 3（安心）</strong>不要なら1タップでいつでもブロック解除OK</div>
+        </div>
+      </div>
+
+      <div id="faq" style="margin-top:60px;">
+        <div class="sec-head">
+          <span class="eyebrow">FAQ</span>
+          <h2>よくある質問</h2>
+        </div>
+        <details><summary>高スペックPC（GPU搭載）が無くても動かせますか？</summary><p>はい。重たい動画生成はクラウドGPUへ自動オフロードする設計のため、通常のMacBookやWindowsノートPCでそのまま稼働します。</p></details>
+        <details><summary>プログラミングや動画編集が初めてでもついていけますか？</summary><p>環境構築は1コマンド自動化されており、エラーが出ても公式LINEの24時間AI伴走Botが即座に解決手順を案内します。</p></details>
+        <details><summary>下請けの動画編集案件を取るスクールとは何が違いますか？</summary><p>他人の下請けではなく「自分の非属人YouTubeチャンネルでオーナー収益を生むこと」に特化しているため、案件獲得営業や納期消耗がありません。</p></details>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p style="color:#fff;font-weight:800;margin:0 0 8px;">AI Creator Studio — 非属人YouTube収益化</p>
+      <p style="margin:0;">特定商取引法に基づく表記 ｜ プライバシーポリシー ｜ 利用規約 ｜ <a href="../partner_deck/index.html" style="color:#7dd3fc;text-decoration:underline;">法人導入・パートナーOEM提携のご相談はこちら</a></p>
+    </div>
+  </footer>
+
+  <div class="sticky-cta">
+    <a class="btn-orange js-line-cta" href="https://lin.ee/ZsuT0Ei">公式LINEで「競合10ch倍勝率CSV＋自動化構成図」を無料で受け取る →</a>
+  </div>
+
+  <script>
+    (function() {
+      const qs = window.location.search;
+      if (!qs) return;
+      const incoming = new URLSearchParams(qs);
+      document.querySelectorAll('.js-line-cta').forEach((el) => {
+        try {
+          const u = new URL(el.href, window.location.href);
+          ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'ref'].forEach((k) => {
+            if (incoming.get(k) && !u.searchParams.get(k)) u.searchParams.set(k, incoming.get(k));
+          });
+          el.href = u.toString();
+        } catch (_) {}
+      });
+    })();
+  </script>
+</body>
+</html>
